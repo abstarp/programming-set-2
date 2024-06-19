@@ -114,7 +114,6 @@ def shift_by_letter(letter, letter_shift):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    pass
 def shift_by_letter(letter,letter_shift):
     letter_to_num = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7, 'I': 8, 'J': 9, 'K': 10, 'L': 11, 'M': 12, 'N': 13, 'O': 14, 'P': 15, 'Q': 16, 'R': 17, 'S': 18, 'T': 19, 'U': 20,'V': 21, 'W': 22, 'X': 23, 'Y': 24, 'Z': 25}
 
@@ -160,31 +159,20 @@ def vigenere_cipher(message, key):
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
 def vigenere_cipher(message, key):
-    letter_to_number = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7, 'I': 8, 'J': 9, 'K': 10, 'L': 11, 'M': 12, 'N': 13, 'O': 14, 'P': 15, 'Q': 16, 'R': 17, 'S': 18,'T': 19, 'U': 20, 'V': 21, 'W': 22, 'X': 23, 'Y': 24, 'Z': 25}
-       
-    number_to_letter = {}
-    for letter, number in letter_to_number.items():
-        number_to_letter[number] = letter
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
     encrypted_message = ""
-    key_index = 0
 
-    for char in message:
-        if char == " ":
-            encrypted_message += " "
+    for i, letter in enumerate(message):
+        if  letter != " ":
+            message_index = alphabet.find(letter)
+            key_index = alphabet.find(key[i % len(key)])
+            new_index = (message_index + key_index) % 26
+            encrypted_message += alphabet[new_index]
         else:
-            message_num = letter_to_number[char]
-            key_char = key[key_index]
-            key_num = letter_to_num[key_char]
-            encrypted_num = (message_num + key_num)
+           encrypted_message += " " 
 
-
-        
-
-
-
-
-
+    return encrypted_message
 
 def scytale_cipher(message, shift):
     '''Scytale Cipher.
@@ -237,6 +225,8 @@ def scytale_cipher(message, shift):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
+    pass
+
 def scytale_cipher(message,shift):
     remainder = len(message) % shift #check if message is a multiple of the shift
     if remainder != 0:
@@ -252,7 +242,7 @@ def scytale_cipher(message,shift):
         new_index = column * (message_length // shift) + row
         encoded_message.append(message[new_index])
 
-    return ''.join(encoded_message)
+    return "".join(encoded_message)
 
 
 def scytale_decipher(message, shift):
@@ -281,4 +271,20 @@ def scytale_decipher(message, shift):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    pass
+    
+def scytale_decipher(message, shift):
+    message_length = len(message)
+    num_col = message_length // shift
+
+    decoded_message = [""] * message_length
+
+    for i in range(message_length):
+        row = i % shift
+        col = i // shift
+
+        original_index = row * num_col + col
+
+        decoded_message[original_index] = message[i]
+    
+    return "".join(decoded_message)
+    
